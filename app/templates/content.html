@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/add" method="post">
+{% for k,v in cols.items() %}
+                        <div class="form-group">
+                            <input class="form-control" type="{{v[1]}}" name="{{k}}" placeholder="{{v[0]}}" value="{{v[0]}}" required>
+                        </div>
+                    {% endfor %}
+                       
+                        <button class="btn btn-primary" type="submit">
+                            Add
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    {% for k,v in cols.items() %}
+                        <th>{{ v[0]}}</th>
+                    {% endfor %}
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entry in entries %}
+                <tr>
+                    {% for k,v in entry.items() %}
+                        <td>{{ v }}</td>
+                    {% endfor %}
+
+                    
+                    <td>
+                        <button class="btn btn-danger delete"
+                           value="{{ entry.customer_id }}">
+                            Delete
+                        </button>
+                        <a class="btn btn-info"
+                           href="/update/{{entry.customer_id}}">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        console.log(2);
+    $('button.delete').on('click', function () {
+        var e = $(this).val();
+        $.ajax({
+            url: `delete/${e}`,
+            success: function (html) {
+            $(this).parents()[1].remove();
+            },
+            error: function (error) {
+                console.log('error; ' + (error));
+            }
+        });
+    });
+    $("[type=date2]").datepicker({dateFormat: "M dd, yy"}).datepicker("setDate", new Date());
+
+});
+    
+</script>
+{% endblock %}
+
+
+
+

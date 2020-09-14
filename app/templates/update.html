@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/update" method="post">
+                        {% for k,v in entry.items() %}
+                        <div class="form-group">
+                            <input class="form-control" type="{{cols[k][1]}}" name="{{k}}" placeholder="{{cols[k][0]}}" value="{{v}}" required>
+                        </div>
+                    {% endfor %}
+                        <button class="btn btn-primary" type="submit">
+                            Update
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
