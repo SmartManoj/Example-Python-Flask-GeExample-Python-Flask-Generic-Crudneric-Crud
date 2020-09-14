@@ -5,6 +5,7 @@
  Simple example python flask generic crud app for sqlite.
 
 Forked from : https://github.com/gurkanakdeniz/example-flask-crud.git
+
 Need little cleaning ; Feel free to PR 
 
 ## Screenshots
